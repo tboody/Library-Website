@@ -2,27 +2,33 @@
 This project is a simple library website allowing users to:
 Register an account
 Log in / log out
-Reserve books
-Un-reserve books
+Search and reserve books (by title or category)
+View and un-reserve their reserved books
 2. Technologies Used
 PHP (backend)
-MySQL or similar database (via db.php)
+MySQL database (database name: Bookdb)
 HTML + CSS for frontend
-Basic session / authentication logic
+Session-based authentication
 3. Setup Instructions
 Clone the repository.
 Set up a local web server (e.g., XAMPP, WAMP, LAMP) with PHP and MySQL.
-Import or create the database schema (not documented here).
+Create the database schema with the following tables:
+   - users: username, password, firstname, surname, addressline, addressline2, city, telephone, mobile, passwordcomfer
+   - books: ISBN, booktitle, author, reserved, categoryID
+   - reservations: username, ISBN, reservedDate
 In db.php, update the database credentials (host, username, password, database name).
-Place the project in the web server’s root (e.g., htdocs or www).
+   Default configuration: host='localhost', username='root', password='', database='Bookdb'
+Place the project in the web server's root (e.g., htdocs or www).
 Access via browser, e.g., http://localhost/Library-Website/index.html.
 4. File Structure (key files)
-index.html — Welcome / landing page.
-registration.php — Handles user registration.
-login.php — Handles user login.
-login_homepage.php — User’s homepage after login.
-reservation.php — Book reservation interface.
-logout.php — Handles user logout.
-db.php — Database connection file.
+index.html — Welcome / landing page with links to login and registration.
+registration.php — Handles user registration with form validation.
+login.php — Handles user login with session management.
+login_homepage.php — User's homepage after successful login with navigation links.
+reservation.php — Book reservation interface with search by title or category (8 categories: Health, Business, Biography, Technology, Travel, Self-Help, Cookery, Fiction).
+logout.php — Handles user logout and session destruction.
+db.php — Database connection file (connects to Bookdb database).
 main.css — Styling.
-viewreg.php — Viewing registered users (admin/extra).
+viewreg.php — Displays current user's reserved books and allows unreserving.
+usernotloged.html — Prompts users to log in before accessing restricted features.
+test_reserve_form.html — Test form for book reservation functionality.
