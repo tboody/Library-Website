@@ -1,0 +1,28 @@
+1. Purpose
+This project is a simple library website allowing users to:
+Register an account
+Log in / log out
+Reserve books
+Un-reserve books
+2. Technologies Used
+PHP (backend)
+MySQL or similar database (via db.php)
+HTML + CSS for frontend
+Basic session / authentication logic
+3. Setup Instructions
+Clone the repository.
+Set up a local web server (e.g., XAMPP, WAMP, LAMP) with PHP and MySQL.
+Import or create the database schema (not documented here).
+In db.php, update the database credentials (host, username, password, database name).
+Place the project in the web server’s root (e.g., htdocs or www).
+Access via browser, e.g., http://localhost/Library-Website/index.html.
+4. File Structure (key files)
+index.html — Welcome / landing page.
+registration.php — Handles user registration.
+login.php — Handles user login.
+login_homepage.php — User’s homepage after login.
+reservation.php — Book reservation interface.
+logout.php — Handles user logout.
+db.php — Database connection file.
+main.css — Styling.
+viewreg.php — Viewing registered users (admin/extra).
