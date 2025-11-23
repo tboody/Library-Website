@@ -7,14 +7,48 @@
 </head>
 <body>
     <h2>Test Book Reservation</h2>
+
+    <h3>Important Notes:</h3>
+    <ul>
+        <li>User must be logged in with an active session before reserving books</li>
+        <li>Username is retrieved from $_SESSION['username'], not from POST parameters</li>
+        <li>The reservation.php expects 'reservebook' parameter (containing ISBN), not 'isbn'</li>
+        <li>This form simulates the Reserve button click from search results</li>
+    </ul>
+
+    <h3>Reserve Book Form (must have active session)</h3>
     <form action="reservation.php" method="post">
-        <label for="isbn">ISBN:</label>
-        <input type="text" name="isbn" id="isbn" value="093-403992" required>
-        <br>
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" value="user123" required>
+        <label for="reservebook">ISBN (via reservebook parameter):</label>
+        <input type="text" name="reservebook" id="reservebook" value="093-403992" required>
         <br>
         <input type="submit" value="Reserve Book">
+    </form>
+
+    <hr>
+
+    <h3>Search Book Form</h3>
+    <form action="reservation.php" method="post">
+        <label for="search">Search by Book Title:</label>
+        <input type="text" name="search" id="search" placeholder="Enter book title">
+        <input type="submit" name="submit" value="Search">
+    </form>
+
+    <hr>
+
+    <h3>Category Search Form</h3>
+    <form action="reservation.php" method="post">
+        <label for="searchtype">Select Category:</label>
+        <select name="searchtype" id="searchtype">
+            <option value="1">Health</option>
+            <option value="2">Business</option>
+            <option value="3">Biography</option>
+            <option value="4">Technology</option>
+            <option value="5">Travel</option>
+            <option value="6">Self-Help</option>
+            <option value="7">Cookery</option>
+            <option value="8">Fiction</option>
+        </select>
+        <input type="submit" name="catsearch" value="Search by Category">
     </form>
 </body>
 </html>

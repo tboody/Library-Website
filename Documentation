@@ -17,12 +17,14 @@ In db.php, update the database credentials (host, username, password, database n
 Place the project in the web server’s root (e.g., htdocs or www).
 Access via browser, e.g., http://localhost/Library-Website/index.html.
 4. File Structure (key files)
-index.html — Welcome / landing page.
-registration.php — Handles user registration.
-login.php — Handles user login.
-login_homepage.php — User’s homepage after login.
-reservation.php — Book reservation interface.
-logout.php — Handles user logout.
-db.php — Database connection file.
-main.css — Styling.
-viewreg.php — Viewing registered users (admin/extra).
+index.html — Welcome / landing page with links to login and registration. Login link points to http://localhost/webdev/lib/login.php. Includes a book animation element and welcome instructions.
+registration.php — Handles user registration with form fields for username, password, repeat password, firstname, surname, address (line 1 & 2), city, telephone, and mobile number. Includes validation for duplicate usernames, password matching, password length (exactly 6 characters), and telephone/mobile number format (exactly 10 digits). Includes link to login.php at bottom of page.
+login.php — Handles user login with session management and authentication. Redirects to login_homepage.php upon successful login. Includes link to reservation.php.
+login_homepage.php — Main navigation hub; displays personalized welcome message when logged in (format: "[Capitalized-username], You have logged in successfully!" where the first letter of the username is capitalized using ucfirst()) and provides links to login, registration, reservation, and logout pages.
+reservation.php — Book reservation interface with two search methods: (1) text search by book title, and (2) category dropdown search with 8 categories (Health, Business, Biography, Technology, Travel, Self-Help, Cookery, Fiction). Displays search results in a table format. Text search displays table headers: ISBN, Book Name, Author, Availability, option columns, but has a rendering bug in the table row output (reservation.php:51) where it displays ISBN, Book Name, Author, empty cell, Availability, Availability (duplicate), and then the Reserve/Reserved button. Category search displays: Cat ID (header label, but shows ISBN data), Book Name, Author, Availability, and Action columns. Note: There is a bug where the availability logic is inverted between text search (shows "Reserved" button when availability != 'N') and category search (shows "Reserve" button when availability == 'N'), resulting in inconsistent behavior. Search results are limited to 5 books per query. Includes link to view reserved books page (viewreg.php) and a back to homepage link (http://localhost/webdev/lib/login_homepage.php).
+logout.php — Handles user logout and session destruction. Displays logout confirmation message ("You are now logged out.") with a "Continue" button that redirects to index.html.
+db.php — Database connection file using mysqli_connect to connect to 'Bookdb' database on localhost with root user and no password. Includes error reporting configuration with display_errors enabled and error_reporting set to -1 (all errors). Outputs <pre> tag for formatted error display.
+main.css — Styling for all pages including book animation, form elements, navigation links, headers, and footers.
+viewreg.php — Displays the logged-in user's reserved books in a table format showing ISBN, username, and reservation date, with an unreserve button for each book. Includes a "Back to Home Page" button linking to http://localhost/webdev/lib/login_homepage.php.
+usernotloged.html — Message page prompting users to log in before reserving books.
+test_reserve_form.html — Testing/development file for book reservation functionality.
