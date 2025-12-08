@@ -18,11 +18,13 @@ Place the project in the web server’s root (e.g., htdocs or www).
 Access via browser, e.g., http://localhost/Library-Website/index.html.
 4. File Structure (key files)
 index.html — Welcome / landing page.
-registration.php — Handles user registration.
-login.php — Handles user login.
-login_homepage.php — User’s homepage after login.
-reservation.php — Book reservation interface.
-logout.php — Handles user logout.
-db.php — Database connection file.
+registration.php — Handles user registration with form validation.
+login.php — Handles user login with session management.
+login_homepage.php — User's homepage after login with navigation links.
+reservation.php — Book reservation interface with search by title and category browsing (Health, Business, Biography, Technology, Travel, Self-Help, Cookery, Fiction).
+logout.php — Handles user logout and session destruction.
+db.php — Database connection file (connects to 'Bookdb' database on localhost).
 main.css — Styling.
-viewreg.php — Viewing registered users (admin/extra).
+viewreg.php — Displays the logged-in user's reserved books and allows unreserving them.
+usernotloged.html — Page prompting users to log in before reserving books.
+test_reserve_form.html — Test form for book reservation (development/testing).
