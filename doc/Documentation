@@ -1,9 +1,11 @@
 1. Purpose
 This project is a simple library website allowing users to:
-Register an account
-Log in / log out
-Reserve books
-Un-reserve books
+Register an account with personal details (username, password, name, address, contact info)
+Log in / log out with session management
+Search for books by title or category
+Reserve books (marks book as reserved in database)
+View their reserved books
+Un-reserve books (removes reservation and marks book as available)
 2. Technologies Used
 PHP (backend)
 MySQL or similar database (via db.php)
@@ -12,17 +14,61 @@ Basic session / authentication logic
 3. Setup Instructions
 Clone the repository.
 Set up a local web server (e.g., XAMPP, WAMP, LAMP) with PHP and MySQL.
-Import or create the database schema (not documented here).
-In db.php, update the database credentials (host, username, password, database name).
-Place the project in the web server’s root (e.g., htdocs or www).
+Create a database named 'Bookdb' and import the required schema (see Database Schema section below).
+In db.php, update the database credentials if needed (currently set to: host='localhost', username='root', password='', database='Bookdb').
+Place the project in the web server's root (e.g., htdocs or www).
 Access via browser, e.g., http://localhost/Library-Website/index.html.
+3.1. Database Schema
+The application requires three tables:
+users - Stores user account information (username, password, firstname, surname, addressline, addressline2, city, telephone, mobile, passwordcomfer)
+books - Stores book information (ISBN, booktitle, author, reserved, categoryID)
+  - reserved field: 'Y' = reserved, 'N' = available
+  - categoryID: 1=Health, 2=Business, 3=Biography, 4=Technology, 5=Travel, 6=Self-Help, 7=Cookery, 8=Fiction
+reservations - Stores active reservations (username, ISBN, reservedDate)
 4. File Structure (key files)
 index.html — Welcome / landing page.
-registration.php — Handles user registration.
-login.php — Handles user login.
-login_homepage.php — User’s homepage after login.
-reservation.php — Book reservation interface.
-logout.php — Handles user logout.
-db.php — Database connection file.
-main.css — Styling.
-viewreg.php — Viewing registered users (admin/extra).
+registration.php — Handles user registration with form validation.
+login.php — Handles user login with session management.
+login_homepage.php — User's homepage after login with navigation links.
+reservation.php — Book reservation interface with search functionality (by title or category).
+logout.php — Handles user logout and session destruction.
+db.php — Database connection file (connects to 'Bookdb' database).
+main.css — Styling for all pages.
+viewreg.php — Displays user's reserved books and allows un-reserving them.
+usernotloged.html — Message page for users who aren't logged in.
+test_reserve_form.html — Test page for book reservation functionality.
+5. Key Features
+5.1. User Registration (registration.php)
+- Collects username, password, first name, surname, two address lines, city, telephone, and mobile
+- Password validation: exactly 6 characters
+- Phone number validation: exactly 10 digits
+- Password confirmation field
+- Checks for duplicate usernames before registration
+- Redirects to login page after successful registration
+
+5.2. User Login (login.php)
+- Session-based authentication
+- Validates credentials against database
+- Redirects to login_homepage.php on success
+- Displays error message for invalid credentials
+
+5.3. Book Search and Reservation (reservation.php)
+- Two search methods:
+  a) Search by book title (partial match supported)
+  b) Search by category (dropdown with 8 categories)
+- Displays results in a table with ISBN, title, author, and availability
+- Books marked as 'Y' (reserved) show "Reserved" button (disabled)
+- Books marked as 'N' (available) show "Reserve" button (active)
+- Reservation creates entry in reservations table and updates book status to 'Y'
+- Requires active user session
+
+5.4. View Reserved Books (viewreg.php)
+- Displays all books reserved by the logged-in user
+- Shows ISBN, username, reservation date
+- Provides "Unreserve" button for each book
+- Un-reserving removes entry from reservations table and sets book status back to 'N'
+
+5.5. Logout (logout.php)
+- Destroys user session
+- Unsets session variables
+- Provides button to return to index.html
